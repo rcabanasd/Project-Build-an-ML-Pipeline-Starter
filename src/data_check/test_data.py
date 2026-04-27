@@ -57,7 +57,7 @@ def test_proper_boundaries(data: pd.DataFrame):
     assert np.sum(~idx) == 0
 
 
-def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_threshold: float) -> None:
+def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_threshold: float):
     """
     Apply a threshold on the KL divergence to detect if the distribution of the new data is
     significantly different than that of the reference dataset
@@ -87,3 +87,11 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
 ########################################################
 # Implement here test_row_count and test_price_range   #
 ########################################################
+
+def test_row_count(data):
+    # Test data rows, between 15,000 rows min to 100,000 rows max.
+    assert 15000 < data.shape[0] < 1000000
+
+def test_price_range(data, min_price, max_price):
+    # Test data price between min and max values.
+    assert all(data['price'].between(min_price, max_price))
